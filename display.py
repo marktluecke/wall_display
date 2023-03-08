@@ -84,19 +84,15 @@ class Display:
             self.led_point.on()
 
 
+    def loopDigits():
+        while(True):
+            n = 0
+            while(n <= 9):
+                disp.dispDigit(n)
+                n += 1
+                sleep(1)
 
 
-
-def loopDigits():
-    n = 0
-    while(True):
-        n = 0
-        while(n <= 9):
-            disp.dispDigit(n)
-            n += 1
-            sleep(1)
-
-
-disp = Display(2,22,3,10,4,17,9,27)
-
-disp.ledTest()
+if __name__ == '__main__':
+    disp = Display(2,22,3,10,4,17,9,27)
+    disp.ledTest()
