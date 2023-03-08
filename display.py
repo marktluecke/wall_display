@@ -13,63 +13,44 @@ class Display:
         self.led_down = LED(pin_down)
 
         self.zero = [[1],[1,1],[0],[1,1],[1],[0]]
-
         self.one = [[0],[0,1],[0],[0,1],[0],[0]]
-
         self.two = [[1],[0,1],[1],[1,0],[1],[0]]
-
         self.three = [[1],[0,1],[1],[0,1],[1],[0]]
-
         self.four = [[0],[1,1],[1],[0,1],[0],[0]]
-
         self.five = [[1],[1,0],[1],[0,1],[1],[0]]
-
         self.six = [[1],[1,0],[1],[1,1],[1],[0]]
-
-        self.seven = [[1],
-                    [0,1],
-                    [0],
-                    [0,1],
-                    [0],
-                    [0]]
-
+        self.seven = [[1],[0,1],[0],[0,1],[0],[0]]
         self.eight = [[1],[1,1],[1],[1,1],[1],[0]]
-
         self.nine = [[1],[1,1],[1],[0,1],[1],[0]]
+
+        self.all_on = [[1],[1,1],[1],[1,1],[1],[1]]
+        self.all_off = [[0],[0,0],[0],[0,0],[0],[0]]
 
         self.digits = [self.zero, self.one, self.two, self.three, self.four, self.five, self.six, self.seven, self.eight, self.nine]
 
     def ledTest(self):
-        self.led_point.on()
-        self.led_up.on()
-        self.led_up_left.on()
-        self.led_up_right.on()
-        self.led_middle.on()
-        self.led_down_left.on()
-        self.led_down_right.on()
-        self.led_down.on()
-
-        sleep(1000)
-
-        self.led_point.off()
-        self.led_up.off()
-        self.led_up_left.off()
-        self.led_up_right.off()
-        self.led_middle.off()
-        self.led_down_left.off()
-        self.led_down_right.off()
-        self.led_down.off()
+        self.reset(True)
+        sleep(10)
+        self.reset(False)
+        sleep(2)
+        self.reset(True)
+        sleep(1)
+        self.reset(False)
 
 
-    def reset(self):
-        self.led_point.off()
-        self.led_up.off()
-        self.led_up_left.off()
-        self.led_up_right.off()
-        self.led_middle.off()
-        self.led_down_left.off()
-        self.led_down_right.off()
-        self.led_down.off()
+    def reset(self, status: bool):
+        if status:
+            self.dispMatrix(self.all_on)
+
+        if not status:
+            self.led_point.off()
+            self.led_up.off()
+            self.led_up_left.off()
+            self.led_up_right.off()
+            self.led_middle.off()
+            self.led_down_left.off()
+            self.led_down_right.off()
+            self.led_down.off()
 
 
     def dispDigit(self, digit):
@@ -104,15 +85,18 @@ class Display:
 
 
 
-disp = Display(2,22,3,10,4,17,9,27)
-#disp.ledTest()
 
-n = 0
-while(True):
+
+def loopDigits():
     n = 0
-    while(n <= 9):
-        disp.dispDigit(n)
-        n += 1
-        sleep(1)
+    while(True):
+        n = 0
+        while(n <= 9):
+            disp.dispDigit(n)
+            n += 1
+            sleep(1)
 
 
+disp = Display(2,22,3,10,4,17,9,27)
+
+disp.ledTest()
