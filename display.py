@@ -1,7 +1,7 @@
 from gpiozero import LED
 from time import sleep
 
-class Display:
+class DispUnit:
     def __init__(self, pin_point, pin_up, pin_up_left, pin_up_right, pin_middle, pin_down_left, pin_down_right, pin_down):
         self.led_point = LED(pin_point)
         self.led_up = LED(pin_up)
@@ -93,6 +93,40 @@ class Display:
                 sleep(1)
 
 
+
+class Display:
+    def __init__(self, units: list):
+        self.units = units
+
+    def dispNumber(self, number):
+        if len(str(number)) > len(self.units):
+            print("Error: Number can't have more digits than units in Display!")
+            return(None)
+
+        if len(str(number)) < len(self.units):
+            number = ("0" * (len(self.units) - len(str(number))) + str(number))
+
+
+        for index, element in enumerate(self.units):
+            element.dispDigit(int(str(number)[index]))
+
+    def dispCount(self):
+        while(True):
+            n = 0
+            while(n <= 99):
+                self.dispNumber(n)
+                n += 1
+                sleep(0.5)
+
+
+
 if __name__ == '__main__':
-    disp = Display(2,22,3,10,4,17,9,27)
-    disp.loopDigits()
+    disp = DispUnit(2,22,3,10,4,17,9,27)
+#    disp.loopDigits()
+    disp2 = DispUnit(7,24,14,25,15,18,8,23)
+#    disp2.loopDigits()
+    display = Display([disp, disp2])
+
+    display.dispCount()
+#    display.dispNumber(0)
+#    sleep(5)
