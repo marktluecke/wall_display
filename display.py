@@ -99,16 +99,17 @@ class Display:
         self.units = units
 
     def dispNumber(self, number):
-        if len(str(number)) > len(self.units):
+        s_number = str(number)
+        if len(s_number) > len(self.units):
             print("Error: Number can't have more digits than units in Display!")
             return(None)
 
-        if len(str(number)) < len(self.units):
-            number = ("0" * (len(self.units) - len(str(number))) + str(number))
+        if len(s_number) < len(self.units):
+           s_number = ("0" * (len(self.units) - len(s_number)) + s_number)
 
 
         for index, element in enumerate(self.units):
-            element.dispDigit(int(str(number)[index]))
+            element.dispDigit(int(s_number[index]))
 
     def dispCount(self):
         while(True):
@@ -128,5 +129,5 @@ if __name__ == '__main__':
     display = Display([disp, disp2])
 
     display.dispCount()
-#    display.dispNumber(0)
+#    display.dispNumber(05)
 #    sleep(5)
