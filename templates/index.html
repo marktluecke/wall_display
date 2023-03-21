@@ -1,5 +1,24 @@
 <h1>{{ message }}</h1>
+<div>Goal for today:</div>
+<div>{{ todays_goal }}</div>
+<div>Done today:</div>
+<div>{{ done_today }}</div>
+
 <form method="post">
-    <input type="text" name="title"></input>
-    <button type="submit">Submit</button>
+    <input type="button" name="add_one" value="+1">
+    <input type="button" name="add_five" value="+5">
+    <br>
+    <input type="button" name="sub_one" value="-1">
+    <input type="button" name="sub_five" value="-5">
+    
+
+
 </form>
+<form method="post">
+    <label for="count">Set to:</label>
+    <input id="count" type="number" name="count" min="0" max="99">
+    <button type="submit">Fertig</button>
+</form>
+
+<div>Goal for tomorrow:</div>
+<div>{{ tommorrows_goal }}</div>
