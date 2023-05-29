@@ -43,7 +43,9 @@ def index():
         print(num)
 
     elif request.method == 'GET':
-        return(render_template('index.html', message=message))
+#        return(render_template('index.html', message=message))
+        pass
+
 
     if number < 0:
         number = 0
@@ -52,7 +54,7 @@ def index():
 
     disp.dispNumber(number)
 
-    return(render_template('index.html', message='done'))
+    return(render_template('index.html', message=message, done_today=number))
 #@app.route("/", methods=('GET', 'POST'))
 #def create():
 #    message = "Test"
