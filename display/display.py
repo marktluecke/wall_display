@@ -122,9 +122,9 @@ class Display:
 
 
 if __name__ == '__main__':
-    disp = DispUnit(2,22,3,10,4,17,9,27)
+    disp2 = DispUnit(1,25,17,7,8,3,24,12)
 #    disp.loopDigits()
-    disp2 = DispUnit(7,24,14,25,15,18,8,23)
+    disp = DispUnit(4,16,23,20,10,27,21,22)
 #    disp2.loopDigits()
     display = Display([disp, disp2])
 
