@@ -23,7 +23,7 @@ app = Flask(__name__)
 
 number = 0
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/disp", methods=['GET', 'POST'])
 def index():
     global number
     message = "Display your number"
@@ -65,7 +65,23 @@ def index():
 
     disp.dispNumber(number)
 
-    return(render_template('index.html', message=message, done_today=number))
+    return(render_template('disp.html', message=message, done_today=number))
+
+
+@app.route('/', methods=["GET","POST"])
+def index():
+    if request.method == 'POST':
+        if request.form['button'] == 'call':
+            for n in range(10):
+                for p in range(led_count):
+                    pixels[p] = (255, 0, 0)
+                    pixels[p-5] = (0, 0, 0)
+                    sleep(0.03)
+            pixels.fill((0, 0, 0))
+        else:
+            pass
+    return render_template('index.html')
+
 
 def button_control():
     global number
