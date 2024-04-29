@@ -11,7 +11,7 @@ from time import sleep
 
 led = RGBLED(red=10, green=14, blue=15)
 button = Button(2)
-siren_leds = 12
+sirene_leds = 12
 
 disp_unit_1 = d.DispUnit(4,16,23,20,9,27,21,22)
 disp_unit_2 = d.DispUnit(1,25,17,7,8,3,24,12)
@@ -23,8 +23,8 @@ app = Flask(__name__)
 
 number = 0
 
-@app.route("/disp", methods=['GET', 'POST'])
-def index():
+@app.route("/display", methods=['GET', 'POST'])
+def num_disp():
     global number
     message = "Display your number"
 
@@ -73,7 +73,7 @@ def index():
     if request.method == 'POST':
         if request.form['button'] == 'call':
             for n in range(10):
-                for p in range(led_count):
+                for p in range(sirene_leds):
                     pixels[p] = (255, 0, 0)
                     pixels[p-5] = (0, 0, 0)
                     sleep(0.03)
