@@ -23,8 +23,10 @@ app = Flask(__name__)
 
 number = 0
 
+
 @app.route("/display", methods=['GET', 'POST'])
 def num_disp():
+    all_off = False
     global number
     message = "Display your number"
 
@@ -46,9 +48,7 @@ def num_disp():
             number -= 5
             pass
         elif request.form.get('clr_all') == 'Turn of all LEDs':
-            disp_unit_1.reset(False)
-            disp_unit_2.reset(False)
-            led.off()
+            all_off = True
             pass
             
         else:
@@ -68,8 +68,13 @@ def num_disp():
         number = 0
     elif number > 99:
         number = 99
-
-    disp.dispNumber(number)
+    if not all_off:
+        disp.dispNumber(number)
+    else:
+        disp_unit_1.reset(False)
+        disp_unit_2.reset(False)
+        led.off()
+        all_off = False
 
     return(render_template('disp.html', message=message, done_today=number))
 
