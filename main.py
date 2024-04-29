@@ -45,6 +45,8 @@ def num_disp():
             print('-5')
             number -= 5
             pass
+        elif request.form.get('clr_all') == 'Turn of all LEDs':
+            
         else:
             pass
 
