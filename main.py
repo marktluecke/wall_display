@@ -46,6 +46,10 @@ def num_disp():
             number -= 5
             pass
         elif request.form.get('clr_all') == 'Turn of all LEDs':
+            disp_unit_1.reset(False)
+            disp_unit_2.reset(False)
+            led.off()
+            pass
             
         else:
             pass
