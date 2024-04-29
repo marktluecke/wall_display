@@ -1,17 +1,20 @@
 from flask import Flask, render_template, request, redirect
 from display import display as d
 from gpiozero import RGBLED, Button
+import threading
+import logging
 
-led = RGBLED(red=18, green=14, blue=15)
+led = RGBLED(red=10, green=14, blue=15)
 button = Button(2)
 
-disp_unit_1 = d.DispUnit(4,16,23,20,10,27,21,22)
+disp_unit_1 = d.DispUnit(4,16,23,20,9,27,21,22)
 disp_unit_2 = d.DispUnit(1,25,17,7,8,3,24,12)
 disp = d.Display([disp_unit_1,disp_unit_2])
 
 app = Flask(__name__)
 
 number = 0
+
 @app.route("/", methods=['GET', 'POST'])
 def index():
     global number
@@ -55,20 +58,15 @@ def index():
     disp.dispNumber(number)
 
     return(render_template('index.html', message=message, done_today=number))
-#@app.route("/", methods=('GET', 'POST'))
-#def create():
-#    message = "Test"
 
-#    if request.form['submit_button'] == '+1':
-#        print("+1")
-#        pass
-#    elif request.form['submit_button'] == '+5':
-#        pass
-
-#    print(request.form['title'])
-#    disp.dispNumber(request.form['title'])
-#    return(redirect("/"))
+def button_control():
+    global number
+    while(True):
+        button.wait_for_press()
+#        number += 1
+        print('button pressed')
 
 if __name__ == '__main__':
-	app.run(debug=True, host="0.0.0.0")
-
+#	app.run(debug=True, host="0.0.0.0")
+    threading.Thread(target=lambda: app.run(host="0.0.0.0", debug=True, use_reloader=False)).start()
+    threading.Thread(target=button_control).start()
