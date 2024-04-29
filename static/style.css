@@ -1,0 +1,12 @@
+input[type=submit] {
+    text-align: center;
+    width: 500px;
+    height: 500px;
+    font-size: 70px;
+    margin-top: 3%;
+    border-radius: 50%;
+}
+
+div {
+    text-align: center;
+}

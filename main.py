@@ -93,6 +93,15 @@ def index():
             pass
     return render_template('index.html')
 
+@app.route('/api_call')
+def api_call():
+    for n in range(10):
+        for p in range(sirene_leds):
+            pixels[p] = (255, 0, 0)
+            pixels[p-5] = (0, 0, 0)
+            sleep(0.03)
+    pixels.fill((0, 0, 0))
+    return "Api was called"
 
 def button_control():
     global number
