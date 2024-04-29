@@ -3,13 +3,21 @@ from display import display as d
 from gpiozero import RGBLED, Button
 import threading
 import logging
+import board
+import neopixel
+from time import sleep
+
+
 
 led = RGBLED(red=10, green=14, blue=15)
 button = Button(2)
+siren_leds = 12
 
 disp_unit_1 = d.DispUnit(4,16,23,20,9,27,21,22)
 disp_unit_2 = d.DispUnit(1,25,17,7,8,3,24,12)
 disp = d.Display([disp_unit_1,disp_unit_2])
+pixels = neopixel.NeoPixel(board.D18, sirene_leds, brightness = 1)
+pixels.fill((0, 0, 0))
 
 app = Flask(__name__)
 
