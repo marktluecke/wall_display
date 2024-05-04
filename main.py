@@ -8,7 +8,6 @@ import neopixel
 from time import sleep
 
 
-
 led = RGBLED(red=10, green=14, blue=15)
 button = Button(2)
 sirene_leds = 12
@@ -22,6 +21,15 @@ pixels.fill((0, 0, 0))
 app = Flask(__name__)
 
 number = 0
+
+
+def sirene(c):
+    for n in range(10):
+        for p in range(sirene_leds):
+            pixels[p] = c
+            pixels[p-5] = (0, 0, 0)
+            sleep(0.03)
+    pixels.fill((0, 0, 0))
 
 
 @app.route("/display", methods=['GET', 'POST'])
@@ -83,36 +91,23 @@ def num_disp():
 def index():
     if request.method == 'POST':
         if request.form['button'] == 'call':
-            for n in range(10):
-                for p in range(sirene_leds):
-                    pixels[p] = (255, 0, 0)
-                    pixels[p-5] = (0, 0, 0)
-                    sleep(0.03)
-            pixels.fill((0, 0, 0))
+           sirene((255, 0, 0))
         else:
             pass
     return render_template('index.html')
 
+
 @app.route('/api_call')
 def api_call():
-    for n in range(10):
-        for p in range(sirene_leds):
-            pixels[p] = (255, 0, 0)
-            pixels[p-5] = (0, 0, 0)
-            sleep(0.03)
-    pixels.fill((0, 0, 0))
+    sirene((255, 0, 0))
     return "Api was called"
 
 
 @app.route('/api_call_blue')
 def api_call_blue():
-    for n in range(10):
-        for p in range(sirene_leds):
-            pixels[p] = (0, 0, 255)
-            pixels[p-5] = (0, 0, 0)
-            sleep(0.03)
-    pixels.fill((0, 0, 0))
+    sirene((0, 0, 255))
     return "Api was called"
+
 
 def button_control():
     global number
