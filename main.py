@@ -103,6 +103,17 @@ def api_call():
     pixels.fill((0, 0, 0))
     return "Api was called"
 
+
+@app.route('/api_call_blue')
+def api_call_blue():
+    for n in range(10):
+        for p in range(sirene_leds):
+            pixels[p] = (0, 0, 255)
+            pixels[p-5] = (0, 0, 0)
+            sleep(0.03)
+    pixels.fill((0, 0, 0))
+    return "Api was called"
+
 def button_control():
     global number
     while(True):
